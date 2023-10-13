@@ -1,0 +1,5 @@
+convert if else in to ternaery
+comments
+as short as you can make the code
+line by line checking
+mail when user register

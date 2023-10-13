@@ -26,15 +26,8 @@ router.get(
 /** user details update by id */
 router.put(
   "/update-details/:userId",
-  validate(userValidation.updateDetails),
+  validate(userValidation.createUser),
   userController.updateDetails
-);
-
-/** for sending mail */
-router.post(
-  "/send-mail",
-  validate(userValidation.sendMail),
-  userController.sendMail
 );
 
 /** Delete user */
