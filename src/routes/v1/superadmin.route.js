@@ -1,7 +1,7 @@
 const express = require("express");
-const { superadminValidation } = require("../validations");
-const { superadminController } = require("../controllers");
-const validate = require("../middlewares/validate");
+const { superadminValidation } = require("../../validations");
+const { superadminController } = require("../../controllers");
+const validate = require("../../middlewares/validate");
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ router.post(
   validate(superadminValidation.createSuperadmin),
   superadminController.createSuperadmin
 );
+
 /** Get superadmin list */
 router.get(
   "/list",

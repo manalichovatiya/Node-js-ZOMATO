@@ -1,7 +1,7 @@
 const express = require("express");
-const { ownerValidation } = require("../validations");
-const { ownerController } = require("../controllers");
-const validate = require("../middlewares/validate");
+const { ownerValidation } = require("../../validations");
+const { ownerController } = require("../../controllers");
+const validate = require("../../middlewares/validate");
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ router.post(
   validate(ownerValidation.createOwner),
   ownerController.createOwner
 );
+
 /** Get owner list */
 router.get(
   "/list",

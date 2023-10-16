@@ -1,7 +1,7 @@
 const express = require("express");
-const { stateValidation } = require("../validations");
-const { stateController } = require("../controllers");
-const validate = require("../middlewares/validate");
+const { stateValidation } = require("../../validations");
+const { stateController } = require("../../controllers");
+const validate = require("../../middlewares/validate");
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ router.post(
   validate(stateValidation.createState),
   stateController.createState
 );
+
 /** Get state list */
 router.get(
   "/list",

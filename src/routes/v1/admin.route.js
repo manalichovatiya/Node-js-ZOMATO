@@ -1,7 +1,7 @@
 const express = require("express");
-const { adminValidation } = require("../validations");
-const { adminController } = require("../controllers");
-const validate = require("../middlewares/validate");
+const { adminValidation } = require("../../validations");
+const { adminController } = require("../../controllers");
+const validate = require("../../middlewares/validate");
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ router.post(
   validate(adminValidation.createAdmin),
   adminController.createAdmin
 );
+
 /** Get admin list */
 router.get(
   "/list",

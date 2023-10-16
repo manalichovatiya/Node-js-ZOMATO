@@ -1,9 +1,10 @@
-const { restaurantService } = require("../services");
+const { restaurantService , cityService} = require("../services");
 
 /** create restaurant */
 const createRestaurant = async (req, res) => {
   try {
     const reqBody = req.body;
+    reqBody.restaurant_image = req.files[0].filename
     const restaurant = await restaurantService.createRestaurant(reqBody);
     if (!restaurant) {throw new Error("Something went wrong, please try again or later!")}
     res.status(200).json({
@@ -46,6 +47,28 @@ const getRestaurantDetails = async (req, res) => {
   }
 };
 
+//** Get restaurant details by city id*/
+const getRestaurantBycity = async (req, res) =>{
+  try {
+    const cityExist = await cityService.getCityById(req.params.cityId)
+    if(!cityExist){
+        throw new Error("City name does not exist ! ")
+    }
+    const restaurantList = await restaurantService.restaurantBycity(req.params.cityId)
+    console.log(restaurantList);
+    res.status(200).json({
+        success:true,
+        message:"Restaurant list by city name dispatch sucessfully ! ",
+        data: restaurantList
+    })
+} catch (error) {
+    res.status(400).json({
+        success:false,
+        message:error.message
+    })
+}
+}
+
 /** restaurant details update by id */
 const updateDetails = async (req, res) => {
   try {
@@ -57,6 +80,25 @@ const updateDetails = async (req, res) => {
 
     res.status(200)
       .json({ success: true, message: "Restaurant details update successfully!" });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+/** Upate restaurant status */
+const updateStatus = async (req, res) => {
+  try {
+    const restaurantId = req.params.restaurantId;
+    const restaurantExists = await restaurantService.getRestaurantById(restaurantId);
+    if (!restaurantExists) {throw new Error("Restaurant not found!")}
+    const restaurantStatus = await restaurantService.updateStatus(restaurantId)
+    if(!restaurantStatus){
+        throw new Error("Something went wrong! ")
+    }
+    res.status(200).json({
+        success:true,
+        messgae:"Restaurant status updated successfully! "
+    })
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
   }
@@ -83,6 +125,8 @@ module.exports = {
   createRestaurant,
   getRestaurantList,
   getRestaurantDetails,
+  getRestaurantBycity,
   updateDetails,
+  updateStatus,
   deleteRestaurant,
 };

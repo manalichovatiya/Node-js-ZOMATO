@@ -29,14 +29,14 @@ const restaurantSchema = new mongoose.Schema(
             type: String,
             trim: true
         },
-        RestImage:{
-            type: mongoose.Types.ObjectId,
-            ref: "rest_image"
+        restaurant_image:{
+            type: String,
+            trim: true
         },
-        FoodImage:{
-            type: mongoose.Types.ObjectId,
-            ref: "food_image"
-        },
+        restaurant_status:{
+            type:Boolean,
+            default:true
+        }
     },
     {
         timestamps: true,

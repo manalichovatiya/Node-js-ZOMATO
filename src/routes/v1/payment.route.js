@@ -1,7 +1,7 @@
 const express = require("express");
-const { paymentValidation } = require("../validations");
-const { paymentController } = require("../controllers");
-const validate = require("../middlewares/validate");
+const { paymentValidation } = require("../../validations");
+const { paymentController } = require("../../controllers");
+const validate = require("../../middlewares/validate");
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ router.post(
   validate(paymentValidation.createPayment),
   paymentController.createPayment
 );
+
 /** Get payment list */
 router.get(
   "/list",

@@ -10,6 +10,16 @@ const createUser = {
   }),
 };
 
+// Send mail
+const sendMail = {
+  body: Joi.object({
+    full_name: Joi.string().required().trim(),
+    email: Joi.string().required().trim().email(),
+    subject: Joi.string().required().trim(),
+  }),
+}
+
 module.exports = {
     createUser,
+    sendMail
 }

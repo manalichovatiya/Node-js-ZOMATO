@@ -1,16 +1,19 @@
 const express = require("express");
-const { restaurantsValidation } = require("../validations");
-const { restaurantController } = require("../controllers");
-const validate = require("../middlewares/validate");
+const { restaurantsValidation } = require("../../validations");
+const { restaurantController } = require("../../controllers");
+const validate = require("../../middlewares/validate");
+const { upload } = require("../../middlewares/upload");
 
 const router = express.Router();
 
 /** create restaurant */
 router.post(
   "/create-restaurant",
+  upload.array("restaurant_image",1),
   validate(restaurantsValidation.createRestaurant),
   restaurantController.createRestaurant
 );
+
 /** Get restaurant list */
 router.get(
   "/list",
@@ -23,10 +26,22 @@ router.get(
   restaurantController.getRestaurantDetails
 );
 
+/** Get restaurant details by city id */
+router.get(
+  "/restaurant-by-city/:cityId",
+  restaurantController.getRestaurantBycity
+);
+
 /** restaurant details update by id */
 router.put(
   "/update-details/:restaurantId",
   validate(restaurantsValidation.createRestaurant),
+  restaurantController.updateDetails
+);
+
+/** update restaurant status*/
+router.put(
+  "/update-restaurant-status/:restaurantId",
   restaurantController.updateDetails
 );
 

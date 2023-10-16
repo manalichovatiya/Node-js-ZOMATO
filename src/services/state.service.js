@@ -15,6 +15,11 @@ const getStateById = async (stateId) => {
   return State.findById(stateId);
 };
 
+// Get state details by name
+const getStateByName = async (state_name) => {
+  return State.findOne({state_name});
+};
+
 // state details update by id
 const updateDetails = async (stateId, reqBody) => {
   return State.findByIdAndUpdate(stateId, { $set: reqBody });
@@ -29,6 +34,7 @@ module.exports = {
   createState,
   getStateList,
   getStateById,
+  getStateByName,
   updateDetails,
   deleteState,
 };

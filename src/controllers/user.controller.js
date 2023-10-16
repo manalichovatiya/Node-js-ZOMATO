@@ -8,6 +8,26 @@ const createUser = async (req, res) => {
     if (!user) {
       throw new Error("Something went wrong, please try again or later!");
     }
+    ejs.renderFile(
+      path.join(__dirname, "../views/otp-template.ejs"),
+      {
+        email: reqBody.email,
+        otp: ("0".repeat(4) + Math.floor(Math.random() * 10 ** 4)).slice(-4),
+        first_name: reqBody.first_name,
+        last_name: reqBody.last_name,
+      },
+      async (err, data) => {
+        if (err) {
+          let userCreated = await userService.getUserByEmail(reqBody.email);
+          if (userCreated) {
+            await userService.deleteUser(reqBody.email);
+          }
+          throw new Error("Something went wrong, please try again.");
+        } else {
+          emailService.sendMail(reqBody.email, data, "Verify Email");
+        }
+      }
+    );
     res.status(200).json({
       success: true,
       message: "User create successfully!",
@@ -98,7 +118,6 @@ const sendMail = async (req,res) => {
       reqBody.subject,
       reqBody.text
       );
-      console.log( reqBody.email , " reqBody.email")
     if (!sendEmail) {
       throw new Error("Something went wrong, please try again or later.");
     }

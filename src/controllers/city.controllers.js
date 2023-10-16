@@ -1,4 +1,4 @@
-const { cityService } = require("../services");
+const { cityService ,stateService } = require("../services");
 
 /** create city */
 const createCity = async (req, res) => {
@@ -62,6 +62,49 @@ const updateDetails = async (req, res) => {
   }
 };
 
+/** City by state id */
+const cityByState = async(req,res) => {
+  try {
+    const stateExist = await stateService.getStateById(req.params.state_name)
+    if(!stateExist){
+        throw new Error("State does not exist ! ")
+    }
+    const cityList = await cityService.cityBystatename(req.params.state_name)
+
+    res.status(200).json({
+        success:true,
+        message:"city list by state name dispatch sucessfully ! ",
+        data: cityList
+    })
+  } catch (error) {
+      res.status(400).json({
+          success:false,
+          message:error.message
+      })
+  }
+}
+
+/** City by state name*/
+const cityByStateName = async(req,res) => {
+  try {
+    const stateExist = await stateService.g(req.params.stateId)
+    if(!stateExist){
+        throw new Error("State does not exist ! ")
+    }
+    const cityList = await cityService.cityBystate(req.params.stateId)
+
+    res.status(200).json({
+        success:true,
+        message:"city list by state name dispatch sucessfully ! ",
+        data: cityList
+    })
+  } catch (error) {
+      res.status(400).json({
+          success:false,
+          message:error.message
+      })
+  }
+}
 /** Delete city */
 const deleteCity = async (req, res) => {
   try {
@@ -84,5 +127,7 @@ module.exports = {
   getCityList,
   getCityDetails,
   updateDetails,
+  cityByState,
+  cityByStateName,
   deleteCity,
 };

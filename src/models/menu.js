@@ -9,9 +9,9 @@ const menuSchema = new mongoose.Schema(
             type: String,
             trim: true
         },
-        FoodImage:{
-            type: mongoose.Types.ObjectId,
-            ref: "food_image"
+        food_Image:{
+            type: String,
+            trim: true
         },
     },
     {

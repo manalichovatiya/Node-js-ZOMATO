@@ -10,8 +10,7 @@ const createRestaurant = {
     whatapp_notifaction: Joi.string().required().trim(),
     restaurant_open_time: Joi.string().required().trim(),
     restaurant_type: Joi.string().required().trim(),
-    RestImage: Joi.string().required().trim(),
-    FoodImage: Joi.string().required().trim(),
+    restaurant_image: Joi.string().required().trim(),
   }),
 };
 

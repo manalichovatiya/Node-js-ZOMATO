@@ -4,6 +4,7 @@ const { menuService } = require("../services");
 const createMenu = async (req, res) => {
   try {
     const reqBody = req.body;
+    reqBody.food_image = req.files[0].filename
     const menu = await menuService.createMenu(reqBody);
     if (!menu) {throw new Error("Something went wrong, please try again or later!")}
     res.status(200).json({
