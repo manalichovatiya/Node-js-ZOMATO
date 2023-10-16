@@ -9,7 +9,7 @@ const router = express.Router();
 /** create menu */
 router.post(
   "/create-menu",
-  upload.array("food_image",1),
+  upload.array("food_image",4),
   validate(menuValidation.createMenu),
   menuController.createMenu
 );

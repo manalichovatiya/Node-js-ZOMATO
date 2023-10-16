@@ -9,7 +9,7 @@ const router = express.Router();
 /** create restaurant */
 router.post(
   "/create-restaurant",
-  upload.array("restaurant_image",1),
+  upload.array("restaurant_image",4),
   validate(restaurantsValidation.createRestaurant),
   restaurantController.createRestaurant
 );
